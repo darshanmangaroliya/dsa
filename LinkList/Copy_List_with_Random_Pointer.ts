@@ -13,20 +13,21 @@
  */
 
 function copyRandomList(head: Node | null): Node | null {
+    if(!head) return head
       let curr = head;
-      let map = {
-        null:null
-      }
+const map = new Map();
+
       while(curr){
-        map[curr.val] = new Node(curr.val)
+        map.set(curr, new Node(curr.val))
         curr = curr.next
       }
       curr = head
       while(curr){
-      let copy = map[curr.val]
-      copy.next = map[curr.next]
-      copy.random = map[curr.random]
+      let copy = map.get(curr)
+      copy.next = map.get(curr?.next)||null
+      copy.random = map.get(curr?.random)||null
+       curr = curr.next
       }
 
-      return map[head.val]
+      return map.get(head)
 };
